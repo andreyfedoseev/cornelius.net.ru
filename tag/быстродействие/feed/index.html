@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>cornelius.net.ru &#187; быстродействие</title>
+	<atom:link href="http://cornelius.net.ru/tag/%d0%b1%d1%8b%d1%81%d1%82%d1%80%d0%be%d0%b4%d0%b5%d0%b9%d1%81%d1%82%d0%b2%d0%b8%d0%b5/feed/" rel="self" type="application/rss+xml" />
+	<link>http://cornelius.net.ru</link>
+	<description>Andrey Fedoseev</description>
+	<lastBuildDate>Wed, 13 Jan 2010 15:05:22 +0000</lastBuildDate>
+	<generator>http://wordpress.org/?v=2.8.2</generator>
+	<language>en</language>
+	<sy:updatePeriod>hourly</sy:updatePeriod>
+	<sy:updateFrequency>1</sy:updateFrequency>
+			<item>
+		<title>Ускорение запуска программ с помощью Preload</title>
+		<link>http://cornelius.net.ru/2008/02/26/preload/</link>
+		<comments>http://cornelius.net.ru/2008/02/26/preload/#comments</comments>
+		<pubDate>Tue, 26 Feb 2008 13:22:57 +0000</pubDate>
+		<dc:creator>Andrey Fedoseev</dc:creator>
+				<category><![CDATA[Linux]]></category>
+		<category><![CDATA[быстродействие]]></category>
+		<category><![CDATA[обзор программы]]></category>
+		<category><![CDATA[HOWTO]]></category>
+		<category><![CDATA[preload]]></category>
+
+		<guid isPermaLink="false">http://cornelius.net.ru/blog/?p=48</guid>
+		<description><![CDATA[Вчера нашёл интересную заметку через Digg. В ней описывается утилита preload, позволяющая ускорить запуск наиболее часто используемых программ.
+Данная утилита присутствует во всех репозиториях Debian и устанавливается командой:
+sudo aptitude install preload
+Файл с настройками находится в /etc/preload.conf, но необходимости что-то в нём менять в общем нет &#8211; стандартные настройки должны работать нормально.
+Существует большая статья, описывающая принцип работы [...]]]></description>
+			<content:encoded><![CDATA[<p>Вчера нашёл интересную заметку через <a href="http://digg.com/linux_unix/Drastically_Speed_up_your_Linux_System_with_Preload">Digg</a>. В ней <a href="http://www.techthrob.com/tech/preload.php">описывается утилита preload</a>, позволяющая ускорить запуск наиболее часто используемых программ.</p>
+<p>Данная утилита присутствует во всех репозиториях Debian и устанавливается командой:</p>
+<pre>sudo aptitude install preload</pre>
+<p>Файл с настройками находится в <code>/etc/preload.conf</code>, но необходимости что-то в нём менять в общем нет &#8211; стандартные настройки должны работать нормально.</p>
+<p>Существует большая <a href="http://www.techthrob.com/tech/preload_files/preload.pdf">статья, описывающая принцип работы preload</a> с математическим обоснованием. Принцип работы preload я понимаю следующим образом: из всего множества работающих в системе процессов с помощью специального алгоритма выделяются т.н. <em>приложения</em> (applications) &#8211; программы, которые пользователь непосредственно использует для работы (браузер, текстовый процессор и т.п.). Например, сервер Apache к приложениям (в этом смысле) не относится. Для каждого приложения определяются файлы, которые оно использует: исполняемые файлы, библиотеки, файлы со шрифтами, значками и т.д. Эти файлы кэшируются в оперативной памяти таким образом, что при очередном запуске приложения нет необходимости читать эти файлы с диска. Результатом является значительное (до двух раз) уменьшение времени запуска приложений.</p>
+<p>Напоследок:</p>
+<ul>
+<li>Журнал работы preload находится в <code>/var/log/preload.log</code></li>
+<li>Файл, описывающий текущее состояние preload (со списком кэшируемых файлов) расположен в <code>/var/lib/preload/preload.state</code></li>
+<li><a href="http://preload.sourceforge.net/">Сайт проекта Preload</a> (в данный момент ничего интересного кроме исходников там нет)</li>
+</ul>
+]]></content:encoded>
+			<wfw:commentRss>http://cornelius.net.ru/2008/02/26/preload/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+		<item>
+		<title>Увеличил быстродействие системы (кажется)</title>
+		<link>http://cornelius.net.ru/2007/07/14/made-some-performance-tweaks/</link>
+		<comments>http://cornelius.net.ru/2007/07/14/made-some-performance-tweaks/#comments</comments>
+		<pubDate>Sat, 14 Jul 2007 15:04:25 +0000</pubDate>
+		<dc:creator>Andrey Fedoseev</dc:creator>
+				<category><![CDATA[Linux]]></category>
+		<category><![CDATA[быстродействие]]></category>
+		<category><![CDATA[HOWTO]]></category>
+
+		<guid isPermaLink="false">http://cornelius.net.ru/blog/?p=51</guid>
+		<description><![CDATA[На digg.com сегодня проплывала заметка на тему улучшения быстродействия Linux системы (оригинал статьи). Решил попробовать.
+
+Оптимизация состоит из трёх шагов:
+
+1. Изменение параметров работы жёсткого диска с помощью hdparm. Для меня это не актуально, т.к. у меня жёсткий диск SATA и к нему предлагаемые в статье методы неприменимы. Поэтому этот шаг я пропустил.
+
+2. Монтирование файловых систем с [...]]]></description>
+			<content:encoded><![CDATA[<p>На <a href="http://digg.com">digg.com</a> сегодня проплывала <a href="http://digg.com/linux_unix/A_Three_Pronged_Attack_to_Increase_Linux_Performance">заметка</a> на тему улучшения быстродействия Linux системы (<a href="http://www.linux.com/feature/116693">оригинал статьи</a>). Решил попробовать.
+</p>
+<p>Оптимизация состоит из трёх шагов:
+</p>
+<p>1. Изменение параметров работы жёсткого диска с помощью <i>hdparm</i>. Для меня это не актуально, т.к. у меня жёсткий диск SATA и к нему предлагаемые в статье методы неприменимы. Поэтому этот шаг я пропустил.
+</p>
+<p>2. Монтирование файловых систем с опцией <i>noatime</i>. При этом не сохраняются данные о времени последнего доступа к файлам (Access Time). Тут всё просто &#8211; добавляем параметр <i>noatime</i> к списку опций в <i>/etc/fstab</i> и перемонтируем файловую систему.
+</p>
+<p>3. Уменьшение времения запуска программ с помощью предварительной линковки (prelink). Про это <a href="http://strannick.blogspot.com/2006/07/blog-post_115405327467901793.html">писал StraNNick</a>, и я тогда включал у себя предварительную линковку по его рецепту, но после этого система была переустановлена, поэтому на текущий момент <i>prelink</i> у меня не использовался. На этот раз я решил не делать <i>prelink</i> для всех приложений, а сделал его только для тех, которые часто приходится запускать, например <i>sudo prelink /usr/bin/thunar</i> и т.д.
+</p>
+<p>В общем советы эти большой оригинальностью и новизной не отличаются, но тем не менее два из трёх для меня подошли. Насколько после этого увеличилось быстродействие сказать не могу, мерить было лениво. Большую надежду возлагаю на монтирование с <i>noatime</i>, т.к. мне часто приходится производить полнотекстовый поиск по большому количеству мелких файлов.</p>
+]]></content:encoded>
+			<wfw:commentRss>http://cornelius.net.ru/2007/07/14/made-some-performance-tweaks/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+	</channel>
+</rss>

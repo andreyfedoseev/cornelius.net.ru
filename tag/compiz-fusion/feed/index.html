@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>cornelius.net.ru &#187; Compiz Fusion</title>
+	<atom:link href="http://cornelius.net.ru/tag/compiz-fusion/feed/" rel="self" type="application/rss+xml" />
+	<link>http://cornelius.net.ru</link>
+	<description>Andrey Fedoseev</description>
+	<lastBuildDate>Wed, 13 Jan 2010 15:05:22 +0000</lastBuildDate>
+	<generator>http://wordpress.org/?v=2.8.2</generator>
+	<language>en</language>
+	<sy:updatePeriod>hourly</sy:updatePeriod>
+	<sy:updateFrequency>1</sy:updateFrequency>
+			<item>
+		<title>Лекарство от розовых теней в Compiz</title>
+		<link>http://cornelius.net.ru/2008/05/03/compiz-ping-shadows/</link>
+		<comments>http://cornelius.net.ru/2008/05/03/compiz-ping-shadows/#comments</comments>
+		<pubDate>Sat, 03 May 2008 11:40:25 +0000</pubDate>
+		<dc:creator>Andrey Fedoseev</dc:creator>
+				<category><![CDATA[Compiz Fusion]]></category>
+		<category><![CDATA[Debian]]></category>
+		<category><![CDATA[Ubuntu]]></category>
+		<category><![CDATA[баг]]></category>
+		<category><![CDATA[Nvidia]]></category>
+
+		<guid isPermaLink="false">http://cornelius.net.ru/?p=74</guid>
+		<description><![CDATA[Суть бага состоит в следующем: при использовании драйверов Nvidia, установленных из репозитория Debian или Ubuntu, тени в Compiz приобритают противоестественный цвет (чаще всего розовый, но я видел и зелёный, и даже белый) либо не отображаются вовсе.
+Этот баг преследует меня уже давно, но решения я найти не мог. Теперь же, с выходом Hardy, эту проблему обнаружило [...]]]></description>
+			<content:encoded><![CDATA[<p>Суть бага состоит в следующем: при использовании драйверов Nvidia, установленных из репозитория Debian или Ubuntu, тени в Compiz приобритают противоестественный цвет (чаще всего розовый, но я видел и зелёный, и даже белый) либо не отображаются вовсе.</p>
+<p>Этот баг преследует меня уже давно, но решения я найти не мог. Теперь же, с выходом Hardy, эту проблему обнаружило гораздо большее число людей. Народ возбудился и коллективный разум выдал временное решение. Надо всего лишь выполнить следующую команду:</p>
+<pre>sudo ln -sf /usr/lib/nvidia/libwfb.so.xserver-xorg-core /usr/lib/xorg/modules/libwfb.so</pre>
+<p>и перезапустить сеанс.</p>
+<p>Решение нашёл в блоге <a href="http://tombuntu.com/index.php/2008/04/28/workaround-for-pink-shadows-with-compiz/">tombuntu.com</a></p>
+<p><strong>UPDATE</strong>: В Ubuntu эта ошибка исправлена в пакете <em>linux-restricted-modules</em> начиная с версии <em>2.6.24.12-17.36</em>.</p>
+]]></content:encoded>
+			<wfw:commentRss>http://cornelius.net.ru/2008/05/03/compiz-ping-shadows/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+		<item>
+		<title>Установка Compiz Fusion (Debian + Xfce)</title>
+		<link>http://andreyfedoseev.ru/blog/articles/50/compiz-fusion-debian-xfce-2</link>
+		<comments>http://andreyfedoseev.ru/blog/articles/50/compiz-fusion-debian-xfce-2#comments</comments>
+		<pubDate>Mon, 11 Feb 2008 15:44:08 +0000</pubDate>
+		<dc:creator>Andrey Fedoseev</dc:creator>
+				<category><![CDATA[Compiz Fusion]]></category>
+		<category><![CDATA[Debian]]></category>
+		<category><![CDATA[Xfce]]></category>
+		<category><![CDATA[Emerald]]></category>
+		<category><![CDATA[HOWTO]]></category>
+
+		<guid isPermaLink="false">http://cornelius.net.ru/blog/?p=60</guid>
+		<description><![CDATA[В этой заметке я опишу процесс установки и базовой настройки оконного менеджера Compiz Fusion в Debian с рабочим окружением Xfce. Ранее я писал об этом, но время не стоит на месте, и те инструкции уже устарели.
+В данный момент Compiz Fusion вошёл в состав Debian Lenny (testing), поэтому подключать дополнительные репозитории вам не придётся (если только [...]]]></description>
+			<content:encoded><![CDATA[<p>В этой заметке я опишу процесс установки и базовой настройки оконного менеджера Compiz Fusion в Debian с рабочим окружением Xfce. <a href="http://cornelius.net.ru/blog/compiz-fusion-debian-xfce">Ранее я писал об этом</a>, но время не стоит на месте, и те инструкции уже устарели.</p>
+<p>В данный момент Compiz Fusion вошёл в состав Debian Lenny (testing), поэтому подключать дополнительные репозитории вам не придётся (если только вы не хотите использовать оконный декоратор Emerald, о чём ниже).</p>
+<p>Итак, приступим&#8230;</p>
+<p> <a href="http://andreyfedoseev.ru/blog/articles/50/compiz-fusion-debian-xfce-2#more-60" class="more-link">(more&#8230;)</a></p>
+]]></content:encoded>
+			<wfw:commentRss>http://andreyfedoseev.ru/blog/articles/50/compiz-fusion-debian-xfce-2feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+		<item>
+		<title>Compiz Fusion + Debian + Xfce [устаревшая заметка]</title>
+		<link>http://cornelius.net.ru/2007/08/14/compiz-fusion-debian-xfce/</link>
+		<comments>http://cornelius.net.ru/2007/08/14/compiz-fusion-debian-xfce/#comments</comments>
+		<pubDate>Tue, 14 Aug 2007 15:49:55 +0000</pubDate>
+		<dc:creator>Andrey Fedoseev</dc:creator>
+				<category><![CDATA[Compiz Fusion]]></category>
+		<category><![CDATA[Debian]]></category>
+		<category><![CDATA[Xfce]]></category>
+		<category><![CDATA[Emerald]]></category>
+		<category><![CDATA[HOWTO]]></category>
+
+		<guid isPermaLink="false">http://cornelius.net.ru/blog/?p=64</guid>
+		<description><![CDATA[ВНИМАНИЕ! Эта заметка устарела! Воспользуйтесь более актуальными инструкциями по установке Compiz Fusion в Debian с рабочим окружением Xfce.
+
+]]></description>
+			<content:encoded><![CDATA[<p><strong>ВНИМАНИЕ! Эта заметка устарела! Воспользуйтесь более актуальными <a href="http://cornelius.net.ru/blog/compiz-fusion-debian-xfce-2">инструкциями по установке Compiz Fusion в Debian с рабочим окружением Xfce.</a></strong></p>
+<p> <a href="http://cornelius.net.ru/2007/08/14/compiz-fusion-debian-xfce/#more-64" class="more-link">(more&#8230;)</a></p>
+]]></content:encoded>
+			<wfw:commentRss>http://cornelius.net.ru/2007/08/14/compiz-fusion-debian-xfce/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+	</channel>
+</rss>

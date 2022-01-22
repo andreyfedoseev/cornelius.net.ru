@@ -1,0 +1,678 @@
+/*
+Theme Name: Rational (cornelius)
+Theme URI: http://cornelius.net.ru
+Description: Rational theme from Free CSS Template adopted for http://cornelius.net.ru site
+Version: 0.1
+Author: Andrey Fedoseev
+Tag: red color, variable width, two columns, widgets
+*/
+
+/*
+    Design by Free CSS Templates
+    http://www.freecsstemplates.org
+    Released for free under a Creative Commons Attribution 2.5 License
+*/
+
+/* Basic */
+
+*
+{
+    margin: 0em;
+    padding: 0em;
+}
+
+h1,h2,h3,h4,h5,h6
+{
+    color: #6a6a6a;
+}
+
+body
+{
+    font-family: "Trebuchet MS", sans-serif;
+    color: #333;
+    font-size: 11pt;
+}
+
+a
+{
+    color: #AF0A0A;
+    text-decoration: underline;
+}
+
+a img {
+    border: none;
+}
+
+/* Outer */
+
+#outer
+{
+    margin: 2.5em 3.0em 1.5em 3.0em;
+}
+
+/* Header */
+
+#header
+{
+    padding: 0em 1.5em 0em 1.5em;
+    height: 8em;
+    width: 15em;
+    float: left;
+    position: relative;
+    background: #AF0A0A url('images/rational_a1.gif') top right no-repeat;
+}
+
+#header div
+{
+    position: absolute;
+    bottom: 2.2em;
+    font-size: 1.5em;
+    letter-spacing: 0.1em;
+}
+
+#header div a
+{
+    color: #fff;
+    text-decoration: none;
+}
+
+#header span
+{
+    position: absolute;
+    bottom: 2.7em;
+    color: #EFE0E0;
+    font-size: 0.8em;
+}
+
+/* Menu */
+
+#menu
+{
+    height: 8em;
+    background: #fafafa url('images/rational_a2.gif') top left repeat-x;
+    margin-left: 18em;
+    position: relative;
+}
+
+#menu ul
+{
+    list-style: none;
+    position: absolute;
+    top: 3.3em;
+    margin-left: 1.5em;
+}
+
+#menu li
+{
+    display: inline;
+    border-left: dotted 1px #848484;
+    padding-left: 0.8em;
+}
+
+#menu li.first
+{
+    border-left: 0px;
+    padding-left: 0em;
+}
+
+#menu li a
+{
+    text-decoration: none;
+    color: #6a6a6a;
+    font-weight: bold;
+    padding: 0.8em;
+    margin-right: 0.8em;
+    font-size: 0.9em;
+}
+
+#menu li a.selected {
+    background: url('images/rational_a5.gif') bottom left repeat-x;
+}
+
+#menu li a:hover
+{
+    background: #AF0A0A url('images/rational_a4.gif') bottom left repeat-x;
+    color: #fff;
+}
+
+/* Content */
+
+#content
+{
+    background: #fff url('images/rational_a3.gif') top left repeat-x;
+    margin-top: 1px;
+    padding-top: 1.5em;
+}
+
+#content p
+{
+    margin-top: 1em;
+    margin-bottom: 0.5em;
+    line-height: 1.6em;
+}
+
+#content h2
+{
+    font-size: 1.5em;
+}
+
+#content h3
+{
+    font-size: 1.1em;
+}
+
+#content h2,h3,h4,h5,h6
+{
+    padding-bottom: 0.2em;
+    margin-bottom: 1.2em;
+    border-bottom: dotted 1px #cacaca;
+}
+
+#content ul, #content ol
+{
+    margin-bottom: 1.5em;
+    padding-left: 0.5em;
+    line-height: 1.6em;
+}
+
+#content blockquote
+{
+    border-left: solid 0.8em #cacaca;
+    padding: 0.5em 0em 0.5em 1.0em;
+    margin-bottom: 1.5em;
+    line-height: 1.6em;
+}
+
+#content blockquote p
+{
+    display: inline;
+}
+
+/* Primary Content */
+
+#primaryContentContainer
+{
+    float: right;
+    margin-left: -19em;
+    width: 100%;
+}
+
+#primaryContent
+{
+    margin: 0em 0em 0em 18em;
+    padding: 1.5em;
+    border-left: dotted 1px #cacaca;
+}
+
+/* Secondary Content */
+
+#secondaryContent
+{
+    float: left;
+    width: 15em;
+    padding: 1.5em;
+    padding-top: 0em;
+}
+
+/* Footer */
+
+#footer
+{
+    margin-top: 1.0em;
+    border-top: dotted 1px #cacaca;
+    padding: 1.5em;
+    font-size: 0.9em;
+    text-align: center;
+}
+
+.clear
+{
+    clear: both;
+}
+
+
+/* Other */
+
+table.form {
+    font-size: 12px;
+}
+
+table.form td {
+    padding: 3px 5px;
+}
+
+table.form td.label {
+    font-weight: bold;
+    vertical-align: top;
+}
+
+table.form tr.buttons td {
+    text-align: right;
+}
+
+table.form .error {
+    font-size: 10px;
+    font-weight: bold;
+    color: #420000;
+    margin: 1px 3px 3px 3px;
+    text-align: right;
+    text-transform: lowercase;
+}
+
+.tile img, .photo a img {
+    padding: 2px;
+    margin: 1px;
+    border: 1px solid #CCC;
+}
+
+.other_stuff_link {
+    text-align: center;
+    font-size: 14px;
+    margin-bottom: 1em;
+}
+
+.other_stuff_link a {
+    text-decoration: underline;
+}
+
+dl.vcard {
+    margin: 10px 0px;
+}
+
+dl.vcard dt {
+    font-weight: bold;
+    margin-top: 15px;
+}
+
+dl.vcard dd {
+    margin: 2px 0px 2px 20px;
+}
+
+.book {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.book .cover {
+    padding: 2px;
+    border: 1px solid #EEE;
+}
+
+.book .title {
+    display: block;
+    font-size: 13px;
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+.book .author {
+    display: block;
+    font-style: italic;
+}
+
+.center {
+    text-align: center;
+}
+
+.m5 {
+    margin: 5px;
+}
+
+.mv1em {
+    margin-top: 1em;
+    margin-bottom: 1em;
+}
+
+.border {
+    border: 1px solid #CCC;
+    padding: 2px;
+}
+
+.twitter {
+    font-size: 10px;
+}
+
+.twitter li {
+    margin-left: 20px;
+    list-style-type: square;
+    margin-bottom: 5px;
+}
+
+.twitter .linkct {
+    text-align: right;
+}
+
+#secondaryContent h2 {
+    margin-top: 1.5em;
+    margin-bottom: 0.5em;
+    font-size: 110%;
+}
+
+#secondaryContent ul {
+    list-style-type: none;
+}
+
+
+#secondaryContent > ul {
+    margin: 0px;
+    padding: 0px;
+}
+
+#secondaryContent > ul > li {
+    margin:0px;
+    padding:0px;
+}
+
+strong {
+    background: inherit;
+    color: #50514D;
+}
+
+input,textarea {
+    border: 1px solid #CCC;
+}
+
+input {
+    padding: 3px;
+}
+
+#content pre {
+    margin: 10px 5px;
+    padding: 3px 5px;
+    border: 1px solid #EEE;
+    background: #FDFDFD;
+    font-size: 85%;
+    overflow: auto;
+}
+
+#content li {
+    margin-left: 0.5em;
+    margin-top: 0.3em;
+}
+
+
+/* Blog CSS */
+
+.blog-entry.listing {
+    margin-bottom: 1.5em;
+    border-bottom: dotted 1px #cacaca;
+    padding-bottom: 1em;
+}
+
+.blog-entry h1 {
+    font-size: 140%;
+    background: none;
+}
+
+.blog-entry h1 a,.blog-entry h1 a:hover {
+    text-decoration: none;
+}
+
+a.back-link {
+    text-transform: lowercase;
+    text-decoration: none;
+}
+
+.entry_info {
+    font-size: 90%;
+    color: #999;
+    margin: 1em;
+}
+
+.entry_info .tags a {
+    text-decoration: none;
+    margin-left: 5px;
+    color: #999;
+}
+
+.entry_info .tags a:hover {
+    text-decoration: underline;
+    color: #666;
+}
+
+.entry-date {
+    float: right;
+    color: #999;
+    font-size: 140%;
+}
+
+.entry_body {
+    margin-top: 1em;
+}
+
+.entry_meta {
+    text-align: right;
+}
+
+#content-listing-navigation {
+    text-align: center;
+}
+
+#content-listing-navigation .prev_page {
+    float: left;
+}
+
+#content-listing-navigation .next_page {
+    float: right;
+}
+
+.batch-pages-links {
+    font-size: 110%;
+}
+
+.batch-pages-links span {
+    font-size: 130%;
+}
+
+.batch-pages-links a:hover {
+    font-size: 130%;
+}
+
+table.comments {
+    width: 400px;
+    margin: auto;
+}
+
+table.comments td.label {
+    width: 100px;
+}
+
+input.comment_form_name,input.comment_form_email,input.comment_form_url
+    {
+    width: 280px;
+}
+
+textarea.comment_form_text {
+    height: 150px;
+    width: 390px;
+}
+
+.gravatar {
+    float: left;
+    border: 1px solid #EEE;
+    padding: 1px;
+    margin-right: 10px;
+    margin-bottom: 5px;
+    background: url(images/no-avatar.png) 1px 1px no-repeat;
+    width: 60px;
+    height: 60px;
+}
+
+.comment_form_back_link {
+    font-size: 12px;
+    padding: 5px;
+}
+
+.comment {
+    border: 1px dotted #CCC;
+    padding: 10px;
+    margin: 10px;
+    clear: both;
+}
+
+.comment_body {
+    margin-bottom: 5px;
+}
+
+.comment_header {
+    font-size: 80%;
+}
+
+.comment_meta {
+    color: gray;
+}
+
+.comment .comment_actions {
+    float: right;
+}
+
+.feedburnerFlareBlock {
+    float: left;
+    margin-bottom: 0px;
+    line-height: inherit;
+}
+
+.blogroll,.top_entries {
+    list-style-type: none;
+}
+
+.blogroll li,.top_entries li {
+    margin-bottom: 7px;
+    margin-left: 10px;
+}
+
+.small_note {
+    text-align: right;
+    font-size: 10px;
+}
+
+a.subscribe_button {
+    display: block;
+    background: url('images/feed-icon.png') no-repeat 0px 50%;
+    height: 50px;
+    width: 130px;
+    padding-left: 60px;
+    font-size: 16px;
+    margin:0px auto;
+}
+
+.st-tag-cloud {
+    text-align: center;
+}
+
+.st-tag-cloud a {
+    text-decoration: none;
+    margin: 1px;
+}
+
+.st-tag-cloud a:hover {
+    text-decoration: underline;
+    opacity: 1.0
+}
+
+a.tag1 {
+    font-size: 1em;
+    white-space: nowrap;
+}
+
+a.tag2 {
+    font-size: 1.1em;
+    white-space: nowrap;
+}
+
+a.tag3 {
+    font-size: 1.2em;
+    white-space: nowrap;
+}
+
+a.tag4 {
+    font-size: 1.3em;
+    white-space: nowrap;
+}
+
+a.tag5 {
+    font-size: 1.4em;
+    white-space: nowrap;
+}
+
+a.tag6 {
+    font-size: 1.5em;
+    white-space: nowrap;
+}
+
+a.tag7 {
+    font-size: 1.6em;
+}
+
+a.tag8 {
+    font-size: 1.7em;
+}
+
+a.tag9 {
+    font-size: 1.8em;
+}
+
+a.tag10 {
+    font-size: 1.9em;
+}
+
+#preview_ct h4 {
+    margin-top: 5px;
+}
+
+pre.im-chat b.nick0 {
+    color: red;
+}
+
+pre.im-chat b.nick1 {
+    color: blue;
+}
+
+pre.im-chat b.nick2 {
+    color: green;
+}
+
+.st-tag-cloud a {
+    text-decoration: none;
+}
+
+.st-tag-cloud a:hover {
+    text-decoration: underline;
+}
+
+#searchform div {
+    width: 180px;
+    margin: 20px auto 0px auto;
+}
+
+#respond {
+    margin-top: 2em;
+}
+
+#content .comment_body > p {
+    margin-top: 0px;
+    margin-top: 0px;
+}
+
+p.thdrpy {
+    font-size: 80%;
+    text-align: right;
+}
+
+.comment .comment {
+    margin: 0px;
+    margin-top: 1em;
+    background-color: #EFEFEF;
+}
+
+.attachment.alignleft {
+    float: left;
+    margin-right: 0.5em;
+    margin-bottom: 0.5em;
+}
+
+.attachment.alignright {
+    float: right;
+    margin-left: 0.5em;
+    margin-bottom: 0.5em;
+}

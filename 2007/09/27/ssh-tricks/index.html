@@ -1,0 +1,468 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head profile="http://gmpg.org/xfn/11">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Хитрости SSH (перевод статьи &#8220;SSH Tricks&#8221;) | cornelius.net.ru</title>
+<meta name="generator" content="WordPress 2.8.2" /> <!-- leave this for stats -->
+<link rel="stylesheet" href="http://cornelius.net.ru/wp-content/themes/cornelius.net.ru/style.css" type="text/css" media="screen" />
+<link rel="alternate" type="application/rss+xml" title="cornelius.net.ru RSS Feed" href="http://feeds.feedburner.com/AndreyFedoseev" />
+<link rel="pingback" href="http://cornelius.net.ru/xmlrpc.php" />
+<link rel="shortcut icon"
+      href="/wp-content/themes/cornelius.net.ru/images/favicon.ico"
+      type="image/x-icon" />
+<meta name="verify-v1" content="MbzUpagNhJoTffSVSj3EvMVcXGxkhHKrWwJiIqOxzAo=" />
+<link rel="openid.server" href="http://www.myopenid.com/server" />
+<link rel="openid.delegate" href="http://andreyfedoseev.myopenid.com/" />
+<link rel="alternate" type="application/rss+xml" title="cornelius.net.ru &raquo; Хитрости SSH (перевод статьи &#8220;SSH Tricks&#8221;) Comments Feed" href="http://andreyfedoseev.ru/blog/articles/51/ssh-tricksfeed/" />
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://cornelius.net.ru/xmlrpc.php?rsd" />
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="http://cornelius.net.ru/wp-includes/wlwmanifest.xml" /> 
+<link rel='index' title='cornelius.net.ru' href='http://cornelius.net.ru' />
+<link rel='start' title='Как изменить значения кнопок на клавиатуре и мыши' href='http://andreyfedoseev.ru/blog/articles/53/xmodmap' />
+<link rel='prev' title='Battle Tanks &#8211; аркада старой школы' href='http://cornelius.net.ru/2007/08/24/btanks/' />
+<link rel='next' title='Как изменить значения кнопок на клавиатуре и мыши' href='http://andreyfedoseev.ru/blog/articles/53/xmodmap' />
+<meta name="generator" content="WordPress 2.8.2" />
+
+<!-- All in One SEO Pack 1.6.4 by Michael Torbert of Semper Fi Web Design[280,390] -->
+<meta name="description" content="Перевод статьи SSH Tricks. Обзор возможностей SSH, таких как SCP, вход без пароля, X forwarding, SSHFS" />
+<meta name="keywords" content="x forwarding, без пароля, fuse, ssh, sshfs, scp,перевод,howto,ssh" />
+<link rel="canonical" href="http://andreyfedoseev.ru/blog/articles/51/ssh-tricks" />
+<!-- /all in one seo pack -->
+
+		<link rel="stylesheet" type="text/css" href="http://cornelius.net.ru/wp-content/plugins/openid/f/openid.min.css?ver=519" />
+<link rel="stylesheet" href="http://cornelius.net.ru/wp-content/plugins/wp-syntax/wp-syntax.css" type="text/css" media="screen" />
+</head>
+<body>
+<div id="outer">
+<div id="header">
+  <div><a href="http://cornelius.net.ru/">cornelius</a></div>
+  <span>Andrey Fedoseev</span>
+</div>
+
+<div id="menu">
+<ul>
+  <li class="first"><a href="http://cornelius.net.ru">Блог</a></li>
+  <li class="page_item page-item-4"><a href="http://cornelius.net.ru/contacts/">Контактная информация</a></li>
+</ul>
+</div>
+
+<div id="content">
+
+    <div id="primaryContentContainer">
+        <div id="primaryContent">
+                            <div class="blog-entry" id="post-43">
+                    <span class="entry-date">27 Sep, 2007</span>
+                    <h1><a href="http://andreyfedoseev.ru/blog/articles/51/ssh-tricks" rel="bookmark" title="Постоянная ссылка на Хитрости SSH (перевод статьи &#8220;SSH Tricks&#8221;)">Хитрости SSH (перевод статьи &#8220;SSH Tricks&#8221;)</a></h1>
+                    <div class="entry_info">
+                      <div class="tags">Категории: <a href="http://cornelius.net.ru/category/it/oss/" title="View all posts in свободное ПО" rel="category tag">свободное ПО</a></div>
+                      <div class="tags">Тэги: <a href="http://cornelius.net.ru/tag/%d0%bf%d0%b5%d1%80%d0%b5%d0%b2%d0%be%d0%b4/" rel="tag">перевод</a>, <a href="http://cornelius.net.ru/tag/howto/" rel="tag">HOWTO</a>, <a href="http://cornelius.net.ru/tag/ssh/" rel="tag">SSH</a></div>
+                    </div>
+                    <div class="entry_body">
+                        <p>Ниже представлен мой перевод замечательной статьи SSH Tricks, оригинал которой расположен по адресу: <a href="http://polishlinux.org/apps/ssh-tricks" onclick="javascript:pageTracker._trackPageview('/outbound/article/polishlinux.org');">http://polishlinux.org/apps/ssh-tricks</a>. Публикуется с согласия автора оригинальной статьи.</p>
+<p><b>Содержание:</b></p>
+<ul>
+<li>SCP – защищённое копирование файлов</li>
+<li>Графические интерфейсы для SCP</li>
+<li>SSH без паролей – генерация ключей</li>
+<li>Выполнение команд в удалённой системе</li>
+<li>Перенаправление сеанса X11 &#8211; удалённый запуск графических приложений</li>
+<li>SSHFS &#8211; монтирование удалённых папок</li>
+</ul>
+<p><span id="more-43"></span></p>
+<p>SSH (secure shell) – это программа, позволяющая получить защищённый доступ к удалённым файловым системам <i>[в <a href="http://ru.wikipedia.org/wiki/SSH" onclick="javascript:pageTracker._trackPageview('/outbound/article/ru.wikipedia.org');">Wikipedia</a> дано более точное определение, прим.пер.]</i>. Не все знают, что SSH обладает рядом дополнительных мощных возможностей, таких как вход без запроса пароля, автоматическое выполнение комманд в удалённой системе и даже монтирование удалённых папок. В этой статье мы рассмотрим эти, а также некотороые другие возможности SSH.
+</p>
+<p> SSH работает по принципу клиент-сервер. Это значит, что на сервере, к которому мы хотим подключиться, должен быть запущен демон SSH. В современных дистрибутивах Linux сервер SSH, как правило, установлен по умолчанию. Сервер запускается командой типа <i>/etc/init.d/ssh start</i>. По умолчанию он ожидает соединений на порту 22, так что если вы используете фаервол, убедитесь, что этот порт открыт. После установки и запуска SSH сервера мы можем удалённо подключиться к нему. Чтобы войти пользователем <i>user1</i> на сервер <i>remote_server</i> (который указывается через доменное имя или IP адрес) нужно воспользоваться следующей простой командой:
+</p>
+<pre>ssh user1@remote_server</pre>
+<p>После ввода пароля для доступа к удалённой машине, появится изменённое приглашение для ввода команд, которое выглядит следующим образом:
+</p>
+<pre>user1@remote_server:~$</pre>
+<p>Это означает что мы успешно произвели вход и сейчас работаем в окружении удалённого сервера. Теперь каждая команда будет выполняться на удалённом сервере, с привелегиями того пользователя, под которым мы вошли (в данном случае <i>user1</i>).
+</p>
+<h3>SCP – защищённое копирование файлов<br />
+</h3>
+<p>SCP является составной частью пакета OpenSSH. Эта команда позволяет копировать файлы или папки с удалённого сервера (или на него), используя для этого протокол SSH. Благодаря использованию SSH, SCP является отличной заменой для небезопасного протокола FTP, которой широко используется в Интернете. Не все знают, что в FTP пароли передаются по сети в виде открытого текста, а это значит, что злоумышленники могут с лёгкостью перехватить их. Так что SCP это намного более надёжная альтернатива. Простейший пример использования SCP выглядит так:
+</p>
+<pre>scp file.txt user1@remote_server:~/</pre>
+<p>При этом локальный файл <i>file.txt</i> будет скопирован на удалённый сервер и помещён в домашний каталог пользователя <i>user1</i>. Вместо <i>~/</i> можно использовать другой путь, например <i>/tmp</i>, <i>/home/public</i> или любую другую папку, в которой пользователь <i>user1</i> имеет права на запись.
+</p>
+<p>Чтобы скопировать файл с удалённого сервера на локальный компьютер, используется другой синтаксис SCP:
+</p>
+<pre>scp user1@remote_server:~/file.txt .</pre>
+<p> При этом файл <i>file.txt</i>, расположенный в домашнем каталоге пользователя <i>user1</i> в удалённой системе, будет скопирован в локальную папку (в которой мы сейчас находимся).
+</p>
+<p>Стоит обратить внимание на следующие параметры SCP:
+</p>
+<p><b>-r</b> – рекурсивное копирование папок (включая подкаталоги)
+</p>
+<p><b>-P port</b> – использовать нестандартный порт (по умолчанию 22) – этот параметр следует использовать если сервер ожидает соединения на нестандартном порту. Этот параметр может быть полезен при соединении из сети, защищённой фаерволом. Запуск SSH сервера на порту 443 (используемом для защищённых HTTP соединений) это лучший способ обойти ограничения, установленные сетевым администратором.
+</p>
+<h3>Графические интерфейсы для SCP<br />
+</h3>
+<p>Если вам не нравится работать с консолью, то вы можете использовать графический (или псевдографический) клиент SCP. <b>Midnight Commander</b> – одна из программ, обладающая функциями SCP клиента (Меню → Правая панель/Левая панель → Shell-соединение). <b>Nautilus</b> и <b>Konqueror</b> также поддерживают SCP. Для подключения к удалённой системе в адресной строке надо ввести <i>ssh://user1@remote_server:~/</i>. При этом файлы могут копироваться как если бы они были расположены локально. В среде MS Windows есть отличное приложение <b>WinSCP</b>. Его интерфейс очень похож на Total Commander. Кстати, существует плагин для <b>Total Commander</b>, позволяющий выполнять SCP подключения.
+</p>
+<h3>SSH без паролей – генерация ключей<br />
+</h3>
+<p>Необходимость ввода пароля при каждом SSH соединении может сильно раздражать. С другой стороны, незащищённое удалённое соединение это огромный риск с точки зрения безопасности. Решением этой проблемы является авторизация с помощью пары из открытого (public) и секретного (private) ключей.
+</p>
+<p>Пара ключей обычно генерируется с помощью команды <b>ssh-keygen</b>. Ниже показан результат выполнения такой команды. Возможно использование ключей RSA или DSA.
+</p>
+<pre>$ ssh-keygen -t rsa
+Generating public/private rsa key pair.
+Enter file in which to save the key
+(/home/user1/.ssh/id_rsa):
+Enter passphrase (empty for no passphrase):
+Enter same passphrase again:
+Your identification has been saved in
+/home/user1/.ssh/id_rsa.
+Your public key has been saved in
+/home/user1/.ssh/id_rsa.pub.
+The key fingerprint is:
+xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx</pre>
+<p>Когда программа просит указать пароль для ключа, нужно просто нажать ENTER. При этом будет создан ключ без пароля. Имейте в виду, что это представляет угрозу безопасности, так как это понижает безопасность удалённой системы до уровня безопасности вашей локальной системы <i>[злоумышленник, получивший доступ к секретному ключу, хранящемуся в вашей локальной системе, может воспользоваться им для доступа к удалённой системе - прим. пер.]</i>. Поэтому делайте это на свой страх и риск. Когда <i>ssh-keygen</i> закончит свою работу, вы увидите, что были сгенерированы два ключа. Секретный ключ находится в <i>/home/user1/.ssh/id_rsa</i>. Его нельзя делать общедоступным ни при каких обстоятельствах. Второй ключ (открытый) находится в <i>/home/user1/.ssh/id_rsa.pub</i>, к нему можно предоставить публичный доступ.
+</p>
+<p>Теперь, если мы хотим получить доступ к удалённой системе с нашего локального компьютера без запроса пароля (используя только эти два ключа), мы должны добавить информацию о нашем открытом ключе в файл <i>authorized_keys</i>, расположенный в папке <i>~/.ssh</i> в удалённой системе. Для этого можно воспользоваться следующими командами:
+</p>
+<pre>$ scp /home/user1/.ssh/id_rsa.pub \
+user1@remote_server:~/
+$ ssh user1@remote_server
+$ cat ~/id_rsa.pub &gt;&gt; ~/.ssh/authorized_keys</pre>
+<p>Обратите внимание, что третья команда выполняется на удалённом сервере. После этой процедуры все действия, выполняемые на удалённом сервере через SSH не будут требовать ввода пароля. Это позволит существенно упростить нашу работу с удалённым сервером.
+</p>
+<p>Обратите внимание, что если вам нужен безпарольный доступ с удалённого сервера на локальный, аналогичная процедура должна быть проведена с удалённого сервера. Авторизация с использованием ключей это односторонний процесс. Секретный ключ может авторизовать публичный, но не наоборот.
+</p>
+<h3>Выполнение команд в удалённой системе<br />
+</h3>
+<p>Теперь, когда мы можем войти в удалённую системы без пароля, почему бы не выполнить несколько удалённых команд? В некоторых случаях это может быть полезно, например, когда нам нужно выполнять некоторую команду ежедневно. Раньше мы не могли автоматизировать этот процесс, так как требовался ручной ввод пароля (или указание его в виде простого текста, что является небезопасным).
+</p>
+<p>Один из интересных способов применения безпарольного входа это «удалённое оповещение». Допустим, что на удалённом сервере работает очень важный процесс, например веб-сервер Apache. Мы хотим получить уведомление, когда система начинает испытывать нехватку ресурсов (жёсткий диск переполнен или нагрузка на систему слишком высока). В этом случае мы можем отправить уведомление по электронной почте. Но помимо этого, мы можем выполнить удалённую команду, которая воспроизведёт звуковой сигнал в нашей локальной системе. Для этого можно воспользоваться, например, такой командой:
+</p>
+<pre>ssh user1@local_server 'play \
+/usr/share/sounds/gaim/arrive.wav'</pre>
+<p>Эта команда, выполненная скриптом на удалённом сервере, произведёт безпарольный вход пользователем <i>user1</i> на <i>local_server</i> (на котором мы обычно работаем) и воспроизведёт файл с помощью команды <i>play</i> (которая обычна доступна в Linux).
+</p>
+<h3>Перенаправление сеанса X11 (X forwarding) &#8211; удалённый запуск графических приложений<br />
+</h3>
+<p>Одной из наимение известных функций SSH является перенаправление протокола X. Это позволяет запускать практически любое X приложение удалённо! Для этого всего лишь нужно добавить параметр <b>-X</b> при соединении с удалённым сервером:
+</p>
+<pre>ssh -X user1@remote_server</pre>
+<p>После этого изображения всех запущенных X приложений будут перенаправлены на ваш локальный X сервер. В файле <i>/etc/ssh/ssh_config</i> можно включить постоянное использование перенаправления X11 (указав <i>ForwardX11 yes</i>). Разумеется, чтобы этот параметр сработал, удалённый SSH сервер должен также поддерживать перенаправление X11. Настроить это можно отредактровав файл <i>/etc/ssh/sshd_config</i>. Однако в большинстве дистрибутивов Linux необходимые настройки уже выполнены по умолчанию.<br />
+  
+</p>
+<p>Следующий пример показывает запуск одиночной команды с X перенаправлением:
+</p>
+<pre>ssh -X user1@remote_server 'psi'</pre>
+<p>При этом на удалённом сервере будет запущена программа PSI, а её изображение будет направлено на локальный экран.
+</p>
+<p>Разумеется, скорость приложений, выполняемых удалённо, будет зависеть в первую очередь от скорости сетевого соединения. В локальной сети они будут работать практически без задержек (даже такие вещи как Totem, воспроизводящий фильм DivX). В случае интернет соединения, DSL линии будет достаточно, чтобы приложения типа Skype или Thunderbird работали без особых проблем.
+</p>
+<h3>SSHFS &#8211; монтирование удалённой папки<br />
+</h3>
+<p>Работать с файлами, расположенными на удалённом сервере, через SSH может быть неудобно, особенно если приходится часто копировать различные файлы в обоих направлениях. Использование протокола <a href="http://www.linux.org/lessons/short/fish/x55.html" onclick="javascript:pageTracker._trackPageview('/outbound/article/www.linux.org');">fish://</a> в Midnight Commander или Konqueror является частичным решением, но <i>fish</i> работает медленне SSH и часто тормозит при копировании файлов. Идеальным решением было бы смонтировать удалённый ресурс, и работать с ним через&nbsp; SSH. И такая возможность есть, благодаря <a href="http://fuse.sourceforge.net/sshfs.html" onclick="javascript:pageTracker._trackPageview('/outbound/article/fuse.sourceforge.net');">sshfs</a> и проекту <a href="http://fuse.sourceforge.net/" onclick="javascript:pageTracker._trackPageview('/outbound/article/fuse.sourceforge.net');">fuse</a>.
+</p>
+<p><b>Fuse</b> это модуль ядра (недавно он был принят в официальную ветку 2.6), позволяющий непривилегированным пользователям монтировать различные файловые системы. <b>SSHFS</b> это программа, созданная самим автором <i>fuse</i>, которая позволяет монтировать удалённые папки или файловые системы, используя SSH. Суть проста &#8211; удалённая папка монтируются в папку локальной файловой системы. После этого все операции над этой папкой производятся как если бы это была обычная локальная папка, с той только разницей, что файлы перемещаются через SSH в фоновом режиме.
+</p>
+<p>Установить <b>fuse</b> и <b>sshfs</b> в Ubuntu <i>[и Debian - прим. пер.]</i> очень просто:
+</p>
+<pre># apt-get install sshfs</pre>
+<p>После этого остаётся только добавить пользователя, которому мы хотим предоставить право на монтирование файловых систем через SSH, в группу <i>fuse</i> (используя команду <i>usermod -G -a fuse user1</i> <i>[или adduser user1 fuse, что проще - прим. пер.]</i> или вручную отредактировав файл <i>/etc/group</i>). Также необходимо, чтобы был загружен модуль <i>fuse</i>:
+</p>
+<pre># modprobe fuse</pre>
+<p>После этого, мы можем смонтировать удалённую папку с помощью <i>sshfs</i>:
+</p>
+<pre>mkdir ~/remote_folder
+sshfs user1@remote_server:/tmp ~/remote_folder</pre>
+<p>Указанная выше команда смонтирует папку <i>/tmp</i>, расположенную на удалённом сервере, в папку <i>~/remote_folder</i> на локальной машине. Копирование любых файлов в эту папку будет производится по сети с использанием SCP. Редактирование, создание и удаление файлов будет производится таким же образом.
+</p>
+<p>По окончании работы с удалённой системой мы можем отмонтировать её:
+</p>
+<pre>fusermount -u ~/remote_folder</pre>
+<p>Если мы постоянно работаем с этой папкой, то можно добавить её в таблицу <i>/etc/fstab</i>. При этом она будет автоматически монтироваться при загрузки системы, либо можно будет монтировать её вручную (при использовании параметра <i>noauto</i>) без необходимости каждый раз указывать адрес удалённой папки. Пример записи в <i>/etc/fstab</i>:
+</p>
+<pre>sshfs#user1@remote_server:/tmp \
+/home/user1/remote_folder/ fuse    defaults,auto    0 0</pre>
+<p>Если мы планируем использовать <i>fuse</i> и <i>sshfs</i> регулярно, то нужно добавить <i>fuse</i> в файл <i>/etc/modules</i>. Иначе придётся каждый раз загружать модуль <i>fuse</i> вручную.
+</p>
+<h3>Заключение</h3>
+<p>Как видите, SSH это мощный инструмент для удалённого доступа. Если вам приходится часто работать с удалёнными UNIX системами, то вам стоит освоить его функции и использовать их на практике. Умение работать с SSH помогает сделать ежедневную работу более эффективной и приятной.
+</p>
+<p>Автор данной статьи попросил меня сделать следующую пометку:
+</p>
+<p>This text is a translation of article <a href="http://polishlinux.org/apps/ssh-tricks/" onclick="javascript:pageTracker._trackPageview('/outbound/article/polishlinux.org');">SSH Tricks</a> by <a href="http://borys.musielak.eu/en/" onclick="javascript:pageTracker._trackPageview('/outbound/article/borys.musielak.eu');">Borys Musielak</a> published on GNU/Linux vortal <a href="http://polishlinux.org" onclick="javascript:pageTracker._trackPageview('/outbound/article/polishlinux.org');" title="GNU/Linux, BSD: linux distribution comparisons, articles and tutorials">PolishLinux.org</a>.</p>
+<p>PS. Если вы заметили ошибку или неточность, пишите мне на почту. Адрес указан в <a href="http://cornelius.net.ru/contacts" >Контактах</a>.</p>
+                                            </div>
+                </div>
+
+            
+<!-- You can start editing here. -->
+
+
+
+
+    <h3 id="comments">Комментарии</h3>
+
+        
+    <div class="comment" id="comment-21">
+        <div class="gravatar">
+          <img alt='' src='http://www.gravatar.com/avatar/50223987b41b132893d9919757fa9d1c?s=60&amp;d=http%3A%2F%2Fcornelius.net.ru%2Fwp-content%2Fthemes%2Fcornelius.net.ru%2Fimages%2Fno-avatar.png%3Fs%3D60&amp;r=G' class='avatar avatar-60 photo' height='60' width='60' />        </div>
+        <div class="comment_header">
+            <div class="comment_actions">
+                <a href="#comment-21" title="">Ссылка на этот комментарий</a>
+                            </div>
+            <div class="comment_meta">andrey оставил(а) этот комментарий в 17:38 5.05.2008:</div>
+        </div>
+        <div class="comment_body">
+                        <p>Тут раньше много комментариев было. Уже привык к ним.</p>
+        </div>
+    </div>
+
+        
+    <div class="comment by_author" id="comment-22">
+        <div class="gravatar">
+          <img alt='' src='http://www.gravatar.com/avatar/75de77176dc22bb6f1970d45d2d3ba9d?s=60&amp;d=http%3A%2F%2Fcornelius.net.ru%2Fwp-content%2Fthemes%2Fcornelius.net.ru%2Fimages%2Fno-avatar.png%3Fs%3D60&amp;r=G' class='avatar avatar-60 photo' height='60' width='60' />        </div>
+        <div class="comment_header">
+            <div class="comment_actions">
+                <a href="#comment-22" title="">Ссылка на этот комментарий</a>
+                            </div>
+            <div class="comment_meta"><a href="http://cornelius.net.ru"   rel='external nofollow' class='url'>Andrey Fedoseev</a> оставил(а) этот комментарий в 21:01 5.05.2008:</div>
+        </div>
+        <div class="comment_body">
+                        <p>Технической возможности восстановить комментарии нет (точнее она есть, но не хочется тратить время). Но я могу добавить комментарии, которые были здесь раньше, непосредственно к тексту статьи, если в этом есть необходимость.</p>
+        </div>
+    </div>
+
+        
+    <div class="comment" id="comment-23">
+        <div class="gravatar">
+          <img alt='' src='http://www.gravatar.com/avatar/50223987b41b132893d9919757fa9d1c?s=60&amp;d=http%3A%2F%2Fcornelius.net.ru%2Fwp-content%2Fthemes%2Fcornelius.net.ru%2Fimages%2Fno-avatar.png%3Fs%3D60&amp;r=G' class='avatar avatar-60 photo' height='60' width='60' />        </div>
+        <div class="comment_header">
+            <div class="comment_actions">
+                <a href="#comment-23" title="">Ссылка на этот комментарий</a>
+                            </div>
+            <div class="comment_meta">andrey оставил(а) этот комментарий в 00:11 6.05.2008:</div>
+        </div>
+        <div class="comment_body">
+                        <p>Копирование локального файла на сервер<br />
+cat ~/id_rsa.pub | ssh user@server &#8216;cat &gt;&gt; ~/.ssh/authorized_key&#8217;</p>
+        </div>
+    </div>
+
+        
+    <div class="comment" id="comment-27">
+        <div class="gravatar">
+          <img alt='' src='http://www.gravatar.com/avatar/50223987b41b132893d9919757fa9d1c?s=60&amp;d=http%3A%2F%2Fcornelius.net.ru%2Fwp-content%2Fthemes%2Fcornelius.net.ru%2Fimages%2Fno-avatar.png%3Fs%3D60&amp;r=G' class='avatar avatar-60 photo' height='60' width='60' />        </div>
+        <div class="comment_header">
+            <div class="comment_actions">
+                <a href="#comment-27" title="">Ссылка на этот комментарий</a>
+                            </div>
+            <div class="comment_meta">andrey оставил(а) этот комментарий в 00:01 14.05.2008:</div>
+        </div>
+        <div class="comment_body">
+                        <p>cat ~/.ssh/id_rsa.pub | ssh user@server &#8216;cat &gt;&gt; ~/.ssh/authorized_keys&#8217;</p>
+        </div>
+    </div>
+
+        
+    <div class="comment" id="comment-36">
+        <div class="gravatar">
+          <img alt='' src='http://www.gravatar.com/avatar/?d=http://cornelius.net.ru/wp-content/themes/cornelius.net.ru/images/no-avatar.png&amp;s=60' class='avatar avatar-60 photo avatar-default' height='60' width='60' />        </div>
+        <div class="comment_header">
+            <div class="comment_actions">
+                <a href="#comment-36" title="">Ссылка на этот комментарий</a>
+                            </div>
+            <div class="comment_meta">http://voooova.blogspot.com/ оставил(а) этот комментарий в 14:36 1.06.2008:</div>
+        </div>
+        <div class="comment_body">
+                        <p>Как создать пару ключей, если на удаленном сервере используется другое имя пользователя<br />
+Локально vova@comp<br />
+удаленно vladimir@server<br />
+?</p>
+        </div>
+    </div>
+
+    
+    
+
+
+    <p id="comments-closed">Комментарии для этой записи запрещены.</p>
+
+                    </div>
+    </div>
+<div id="secondaryContent">
+<ul>
+    <li>
+      <a href="http://feeds.feedburner.com/AndreyFedoseev" title="Подписаться на обновления"
+         class="subscribe_button">
+        Подписаться на обновления
+      </a>
+    </li>
+    <li id="search" class="widget widget_search">
+        <form id="searchform" method="get" action="http://cornelius.net.ru">
+            <div>
+            <input type="text" name="s" id="s" size="15" value="" />
+            <input type="submit" value="Поиск" />
+        </div>
+        </form>
+    </li>
+    <li id="categories-101358531" class="widget widget_categories"><h2 class="widgettitle">Категории</h2>
+		<ul>
+	<li class="cat-item cat-item-39"><a href="http://cornelius.net.ru/category/real-life/" title="View all posts filed under про жизнь">про жизнь</a> (5)
+<ul class='children'>
+	<li class="cat-item cat-item-48"><a href="http://cornelius.net.ru/category/real-life/bike/" title="View all posts filed under велик">велик</a> (1)
+</li>
+	<li class="cat-item cat-item-41"><a href="http://cornelius.net.ru/category/real-life/evil/" title="View all posts filed under зло">зло</a> (2)
+</li>
+	<li class="cat-item cat-item-40"><a href="http://cornelius.net.ru/category/real-life/my-life/" title="View all posts filed under моя жизнь">моя жизнь</a> (2)
+</li>
+	<li class="cat-item cat-item-43"><a href="http://cornelius.net.ru/category/real-life/strange/" title="View all posts filed under странное">странное</a> (1)
+</li>
+</ul>
+</li>
+	<li class="cat-item cat-item-38"><a href="http://cornelius.net.ru/category/it/" title="View all posts filed under про IT">про IT</a> (23)
+<ul class='children'>
+	<li class="cat-item cat-item-7"><a href="http://cornelius.net.ru/category/it/internet/" title="View all posts filed under Интернет">Интернет</a> (5)
+</li>
+	<li class="cat-item cat-item-10"><a href="http://cornelius.net.ru/category/it/games/" title="View all posts filed under игры">игры</a> (3)
+</li>
+	<li class="cat-item cat-item-6"><a href="http://cornelius.net.ru/category/it/oss/" title="View all posts filed under свободное ПО">свободное ПО</a> (19)
+	<ul class='children'>
+	<li class="cat-item cat-item-80"><a href="http://cornelius.net.ru/category/it/oss/compiz-fusion/" title="View all posts filed under Compiz Fusion">Compiz Fusion</a> (3)
+</li>
+	<li class="cat-item cat-item-9"><a href="http://cornelius.net.ru/category/it/oss/debian/" title="View all posts filed under Debian">Debian</a> (7)
+</li>
+	<li class="cat-item cat-item-100"><a href="http://cornelius.net.ru/category/it/oss/firefox/" title="View all posts filed under Firefox">Firefox</a> (1)
+</li>
+	<li class="cat-item cat-item-46"><a href="http://cornelius.net.ru/category/it/oss/gnome/" title="View all posts filed under Gnome">Gnome</a> (3)
+</li>
+	<li class="cat-item cat-item-3"><a href="http://cornelius.net.ru/category/it/oss/linux/" title="View all posts filed under Linux">Linux</a> (10)
+</li>
+	<li class="cat-item cat-item-88"><a href="http://cornelius.net.ru/category/it/oss/ubuntu-oss-it/" title="View all posts filed under Ubuntu">Ubuntu</a> (2)
+</li>
+	<li class="cat-item cat-item-47"><a href="http://cornelius.net.ru/category/it/oss/xfce-oss-it-2/" title="View all posts filed under Xfce">Xfce</a> (3)
+</li>
+	</ul>
+</li>
+</ul>
+</li>
+	<li class="cat-item cat-item-1"><a href="http://cornelius.net.ru/category/misc/" title="View all posts filed under прочее">прочее</a> (1)
+</li>
+		</ul>
+</li>
+<li id="widget_stags-1" class="widget widget_stags_cloud"><h2 class="widgettitle">Тэги</h2>
+
+<!-- Generated by Simple Tags 1.6.6 - http://wordpress.org/extend/plugins/simple-tags -->
+	<div class="st-tag-cloud">
+	<a href="http://cornelius.net.ru/tag/%d0%b8%d0%bd%d1%82%d0%b5%d1%80%d0%bd%d0%b5%d1%82/" class="tag1" rel="tag">Интернет</a>
+<a href="http://cornelius.net.ru/tag/%d0%b1%d0%be%d1%82/" class="tag1" rel="tag">бот</a>
+<a href="http://cornelius.net.ru/tag/%d0%b1%d1%8b%d1%81%d1%82%d1%80%d0%be%d0%b4%d0%b5%d0%b9%d1%81%d1%82%d0%b2%d0%b8%d0%b5/" class="tag1" rel="tag">быстродействие</a>
+<a href="http://cornelius.net.ru/tag/%d0%b2%d0%b5%d0%bb%d0%b8%d0%ba/" class="tag1" rel="tag">велик</a>
+<a href="http://cornelius.net.ru/tag/%d0%b2%d0%b5%d1%81%d1%82%d0%b8%d1%80%d1%83/" class="tag1" rel="tag">вести.ру</a>
+<a href="http://cornelius.net.ru/tag/%d0%b2%d0%b8%d0%bb%d0%bb%d0%b8/" class="tag1" rel="tag">вилли</a>
+<a href="http://cornelius.net.ru/tag/%d0%b3%d0%b5%d0%b9%d0%bc%d0%bf%d0%b0%d0%b4/" class="tag1" rel="tag">геймпад</a>
+<a href="http://cornelius.net.ru/tag/%d0%b4%d0%b5%d0%bd%d1%8c%d0%b3%d0%b8/" class="tag1" rel="tag">деньги</a>
+<a href="http://cornelius.net.ru/tag/%d0%b4%d0%b6%d0%be%d0%b9%d1%81%d1%82%d0%b8%d0%ba/" class="tag1" rel="tag">джойстик</a>
+<a href="http://cornelius.net.ru/tag/%d0%b8%d0%b3%d1%80%d0%be%d0%b2%d0%b0%d1%8f-%d0%ba%d0%be%d0%bd%d1%81%d0%be%d0%bb%d1%8c/" class="tag1" rel="tag">игровая консоль</a>
+<a href="http://cornelius.net.ru/tag/%d0%b8%d0%b3%d1%80%d1%8b/" class="tag1" rel="tag">игры</a>
+<a href="http://cornelius.net.ru/tag/%d0%bc%d1%83%d0%b4%d0%b0%d0%ba%d0%b8/" class="tag1" rel="tag">мудаки</a>
+<a href="http://cornelius.net.ru/tag/%d0%be%d0%b1%d0%b7%d0%be%d1%80-%d0%bf%d1%80%d0%be%d0%b3%d1%80%d0%b0%d0%bc%d0%bc%d1%8b/" class="tag4" rel="tag">обзор программы</a>
+<a href="http://cornelius.net.ru/tag/%d0%bf%d0%b5%d1%80%d0%b5%d0%b2%d0%be%d0%b4/" class="tag1" rel="tag">перевод</a>
+<a href="http://cornelius.net.ru/tag/%d0%bf%d0%be%d0%b4%d1%81%d1%82%d0%b0%d0%b2%d0%b0/" class="tag1" rel="tag">подстава</a>
+<a href="http://cornelius.net.ru/tag/%d1%81%d0%bf%d0%b8%d1%81%d0%be%d0%ba-%d1%80%d0%b0%d1%81%d1%81%d1%8b%d0%bb%d0%ba%d0%b8/" class="tag1" rel="tag">список рассылки</a>
+<a href="http://cornelius.net.ru/tag/%d1%82%d1%83%d0%bf%d0%be%d0%b9-%d0%b1%d0%be%d1%82/" class="tag1" rel="tag">тупой бот</a>
+<a href="http://cornelius.net.ru/tag/beryl/" class="tag1" rel="tag">Beryl</a>
+<a href="http://cornelius.net.ru/tag/buddy/" class="tag1" rel="tag">Buddy</a>
+<a href="http://cornelius.net.ru/tag/compiz-fusion/" class="tag2" rel="tag">Compiz Fusion</a>
+<a href="http://cornelius.net.ru/tag/debian/" class="tag6" rel="tag">Debian</a>
+<a href="http://cornelius.net.ru/tag/emerald/" class="tag1" rel="tag">Emerald</a>
+<a href="http://cornelius.net.ru/tag/gmane/" class="tag1" rel="tag">Gmane</a>
+<a href="http://cornelius.net.ru/tag/google/" class="tag1" rel="tag">Google</a>
+<a href="http://cornelius.net.ru/tag/grisbi/" class="tag1" rel="tag">Grisbi</a>
+<a href="http://cornelius.net.ru/tag/gtalk/" class="tag1" rel="tag">gtalk</a>
+<a href="http://cornelius.net.ru/tag/gtk/" class="tag1" rel="tag">GTK</a>
+<a href="http://cornelius.net.ru/tag/howto/" class="tag10" rel="tag">HOWTO</a>
+<a href="http://cornelius.net.ru/tag/icq/" class="tag1" rel="tag">icq</a>
+<a href="http://cornelius.net.ru/tag/jabber/" class="tag1" rel="tag">jabber</a>
+<a href="http://cornelius.net.ru/tag/linux/" class="tag7" rel="tag">Linux</a>
+<a href="http://cornelius.net.ru/tag/preload/" class="tag1" rel="tag">preload</a>
+<a href="http://cornelius.net.ru/tag/rss/" class="tag1" rel="tag">RSS</a>
+<a href="http://cornelius.net.ru/tag/ssh/" class="tag1" rel="tag">SSH</a>
+<a href="http://cornelius.net.ru/tag/ubuntu/" class="tag1" rel="tag">Ubuntu</a>
+<a href="http://cornelius.net.ru/tag/wheeler/" class="tag1" rel="tag">Wheeler</a>
+<a href="http://cornelius.net.ru/tag/wii/" class="tag1" rel="tag">Wii</a>
+<a href="http://cornelius.net.ru/tag/windows-vista/" class="tag1" rel="tag">Windows Vista</a>
+<a href="http://cornelius.net.ru/tag/xfce/" class="tag2" rel="tag">Xfce</a>
+<a href="http://cornelius.net.ru/tag/xmodmap/" class="tag1" rel="tag">xmodmap</a></div>
+
+</li>
+<li id="wppp-2" class="widget widget_wppp"><h2 class="widgettitle">Популярные записи</h2>
+
+<ul class='wppp_list'>
+	<li><a href='http://andreyfedoseev.ru/blog/articles/50/compiz-fusion-debian-xfce-2' title='Установка Compiz Fusion (Debian + Xfce)'>Установка Compiz Fusion (Debian + Xfce)</a></li>
+	<li><a href='http://andreyfedoseev.ru/blog/articles/51/ssh-tricks' title='Хитрости SSH (перевод статьи &quot;SSH Tricks&quot;)'>Хитрости SSH (перевод статьи &quot;SSH Tricks&quot;)</a></li>
+	<li><a href='http://cornelius.net.ru/2007/08/14/compiz-fusion-debian-xfce/' title='Compiz Fusion + Debian + Xfce [устаревшая заметка]'>Compiz Fusion + Debian + Xfce [устаревшая заметка]</a></li>
+	<li><a href='http://andreyfedoseev.ru/blog/articles/52/gmountiso' title='GmountISO - графическая утилита для монтирования ISO-образов'>GmountISO - графическая утилита для монтирования ISO-образов</a></li>
+</ul>
+</li>
+<li id="archives-2" class="widget widget_archive"><h2 class="widgettitle">Архив</h2>
+		<ul>
+			<li><a href='http://cornelius.net.ru/2010/01/' title='January 2010'>January 2010</a>&nbsp;(1)</li>
+	<li><a href='http://cornelius.net.ru/2009/03/' title='March 2009'>March 2009</a>&nbsp;(1)</li>
+	<li><a href='http://cornelius.net.ru/2008/07/' title='July 2008'>July 2008</a>&nbsp;(1)</li>
+	<li><a href='http://cornelius.net.ru/2008/05/' title='May 2008'>May 2008</a>&nbsp;(2)</li>
+	<li><a href='http://cornelius.net.ru/2008/02/' title='February 2008'>February 2008</a>&nbsp;(3)</li>
+	<li><a href='http://cornelius.net.ru/2007/12/' title='December 2007'>December 2007</a>&nbsp;(1)</li>
+	<li><a href='http://cornelius.net.ru/2007/11/' title='November 2007'>November 2007</a>&nbsp;(1)</li>
+	<li><a href='http://cornelius.net.ru/2007/09/' title='September 2007'>September 2007</a>&nbsp;(1)</li>
+	<li><a href='http://cornelius.net.ru/2007/08/' title='August 2007'>August 2007</a>&nbsp;(3)</li>
+	<li><a href='http://cornelius.net.ru/2007/07/' title='July 2007'>July 2007</a>&nbsp;(5)</li>
+	<li><a href='http://cornelius.net.ru/2007/03/' title='March 2007'>March 2007</a>&nbsp;(1)</li>
+	<li><a href='http://cornelius.net.ru/2007/02/' title='February 2007'>February 2007</a>&nbsp;(1)</li>
+	<li><a href='http://cornelius.net.ru/2007/01/' title='January 2007'>January 2007</a>&nbsp;(1)</li>
+	<li><a href='http://cornelius.net.ru/2006/12/' title='December 2006'>December 2006</a>&nbsp;(1)</li>
+	<li><a href='http://cornelius.net.ru/2006/11/' title='November 2006'>November 2006</a>&nbsp;(1)</li>
+	<li><a href='http://cornelius.net.ru/2006/08/' title='August 2006'>August 2006</a>&nbsp;(1)</li>
+		</ul>
+</li>
+<li id="text-101492711" class="widget widget_text"><h2 class="widgettitle">Разные кнопки</h2>
+			<div class="textwidget">      <div class="center m5">
+        <a href="http://www.opennet.ru" target="_blank"><img src="http://www.opennet.ru/ob31x88.gif" alt="Проект OpenNET" width="88" border="0" height="31" /></a>
+       </div></div>
+		</li>
+</ul>
+
+</div>
+<div class="clear"></div>
+
+
+
+</div>
+<div id="footer">
+Любое использование материалов данного сайта возможно только после <a href="/contacts">согласования с автором</a>.<br/>
+Визуальный дизайн <a href="http://www.freecsstemplates.org">Free CSS Templates</a>. <a href="http://validator.w3.org/check?uri=referer">Всё правильно сделал</a>
+</div>
+</div>
+	<!-- Google Analytics for WordPress | http://yoast.com/wordpress/google-analytics/ -->
+	<script type="text/javascript">
+		var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+		document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+	</script>
+	<script type="text/javascript">
+		try {
+			var pageTracker = _gat._getTracker("UA-57403-3");
+		} catch(err) {}
+	</script>
+	<script type="text/javascript">
+		try {
+			// Cookied already: 
+			pageTracker._trackPageview();
+		} catch(err) {}
+	</script>
+	<!-- End of Google Analytics code -->
+	<script type="text/javascript">add_openid_to_comment_form()</script><script src="http://stats.wordpress.com/e-201025.js" type="text/javascript"></script>
+<script type="text/javascript">
+st_go({blog:'3591963',v:'ext',post:'43'});
+var load_cmc = function(){linktracker_init(3591963,43,2);};
+if ( typeof addLoadEvent != 'undefined' ) addLoadEvent(load_cmc);
+else load_cmc();
+</script>
+</body>
+</html>

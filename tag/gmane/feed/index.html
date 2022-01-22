@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>cornelius.net.ru &#187; Gmane</title>
+	<atom:link href="http://cornelius.net.ru/tag/gmane/feed/" rel="self" type="application/rss+xml" />
+	<link>http://cornelius.net.ru</link>
+	<description>Andrey Fedoseev</description>
+	<lastBuildDate>Wed, 13 Jan 2010 15:05:22 +0000</lastBuildDate>
+	<generator>http://wordpress.org/?v=2.8.2</generator>
+	<language>en</language>
+	<sy:updatePeriod>hourly</sy:updatePeriod>
+	<sy:updateFrequency>1</sy:updateFrequency>
+			<item>
+		<title>Как читать списки рассылки через RSS</title>
+		<link>http://cornelius.net.ru/2007/07/14/mailing-list-to-rss/</link>
+		<comments>http://cornelius.net.ru/2007/07/14/mailing-list-to-rss/#comments</comments>
+		<pubDate>Sat, 14 Jul 2007 15:00:30 +0000</pubDate>
+		<dc:creator>Andrey Fedoseev</dc:creator>
+				<category><![CDATA[Интернет]]></category>
+		<category><![CDATA[Gmane]]></category>
+		<category><![CDATA[HOWTO]]></category>
+		<category><![CDATA[список рассылки]]></category>
+		<category><![CDATA[RSS]]></category>
+
+		<guid isPermaLink="false">http://cornelius.net.ru/blog/?p=50</guid>
+		<description><![CDATA[Предыстория: на своей машине я использую гремучую смесь из Debian Stable/Testing/Unstable. Использование Testing на desktop машине сейчас в общем-то является нормой, а вот Unstable всё-таки связан с некоторыми рисками. Тем не менее, некоторые пакеты я беру из Unstable, потому что хочу иметь самую свежую версию тех программ, которые я интесивно использую каждый день.
+
+О новых релизах [...]]]></description>
+			<content:encoded><![CDATA[<p>Предыстория: на своей машине я использую гремучую смесь из Debian Stable/Testing/Unstable. Использование Testing на desktop машине сейчас в общем-то является нормой, а вот Unstable всё-таки связан с некоторыми рисками. Тем не менее, некоторые пакеты я беру из Unstable, потому что хочу иметь самую свежую версию тех программ, которые я интесивно использую каждый день.
+</p>
+<p>О новых релизах я узнаю, как правило, с сайта <a href="http://gnomefiles.org">http://gnomefiles.org</a>, но между официальным релизом и вхождением пакета в Unstable проходит некоторое время, иногда достаточно большое. Вот, например, Quodlibet &#8211; версия 1.0 появилась в Unstable приблизительно через месяц после релиза.
+</p>
+<p>В течение этого месяца я мог бы каждый день делать <i>sudo aptitude update</i> и просматривать список обновляемых пакетов в поисках Quodlibet. Но существует и другой способ получения информации о появлении определённого пакета в Unstable (более удобный IMHO). Это список рассылки <a href="http://lists.debian.org/debian-devel-changes/">debian-devel-changes</a> (существует аналогичный список рассылки для Testing &#8211; <a href="http://lists.debian.org/debian-testing-changes/">debian-testing-changes</a>, они различаются тем, что в первом на каждый пакет высылается отдельное письмо, а во втором &#8211; сводка по изменениям за прошедший день).
+</p>
+<p>В определённый момент я заметил, что было бы намного удобнее получать эти уведомления не по почте, а через RSS. Оказалось, что сделать из списка рассылки RSS-ленту очень просто. Существует сайт <a href="http://gmane.org">http://gmane.org</a>, который предназначен для преобразования списков рассылки в &#8220;ньюсгруппы&#8221; Usenet. Также он выполняет роль архива.
+</p>
+<p>Если интересующий вас список рассылки связан с <abbr title="Open Source Software">OSS</abbr>, то скорее всего он уже зарегистрирован в Gmane. Если же его там нет, то можно <a href="http://gmane.org/add.php">отправить запрос</a> на его добавление.
+</p>
+<p>В моем случае, нужный список рассылки уже был зарегистрирован, мне оставалось только <a href="http://dir.gmane.org/search.php">найти его</a>. На <a href="http://dir.gmane.org/gmane.linux.debian.devel.changes.unstable">странице списка рассылки</a> как раз и находятся необходимые нам ссылки на RSS-ленты. Задача решена, садись &#8211; 5!
+</p>
+<p>PS. Google на запрос &#8220;mailing list to rss&#8221; ничего внятного не выдаёт (по крайней мере на первой странице). Странно, учитывая, что задача вроде бы типовая.</p>
+]]></content:encoded>
+			<wfw:commentRss>http://cornelius.net.ru/2007/07/14/mailing-list-to-rss/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+	</channel>
+</rss>

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>cornelius.net.ru &#187; Ubuntu</title>
+	<atom:link href="http://cornelius.net.ru/category/it/oss/ubuntu-oss-it/feed/" rel="self" type="application/rss+xml" />
+	<link>http://cornelius.net.ru</link>
+	<description>Andrey Fedoseev</description>
+	<lastBuildDate>Wed, 13 Jan 2010 15:05:22 +0000</lastBuildDate>
+	<generator>http://wordpress.org/?v=2.8.2</generator>
+	<language>en</language>
+	<sy:updatePeriod>hourly</sy:updatePeriod>
+	<sy:updateFrequency>1</sy:updateFrequency>
+			<item>
+		<title>Лекарство от розовых теней в Compiz</title>
+		<link>http://cornelius.net.ru/2008/05/03/compiz-ping-shadows/</link>
+		<comments>http://cornelius.net.ru/2008/05/03/compiz-ping-shadows/#comments</comments>
+		<pubDate>Sat, 03 May 2008 11:40:25 +0000</pubDate>
+		<dc:creator>Andrey Fedoseev</dc:creator>
+				<category><![CDATA[Compiz Fusion]]></category>
+		<category><![CDATA[Debian]]></category>
+		<category><![CDATA[Ubuntu]]></category>
+		<category><![CDATA[баг]]></category>
+		<category><![CDATA[Nvidia]]></category>
+
+		<guid isPermaLink="false">http://cornelius.net.ru/?p=74</guid>
+		<description><![CDATA[Суть бага состоит в следующем: при использовании драйверов Nvidia, установленных из репозитория Debian или Ubuntu, тени в Compiz приобритают противоестественный цвет (чаще всего розовый, но я видел и зелёный, и даже белый) либо не отображаются вовсе.
+Этот баг преследует меня уже давно, но решения я найти не мог. Теперь же, с выходом Hardy, эту проблему обнаружило [...]]]></description>
+			<content:encoded><![CDATA[<p>Суть бага состоит в следующем: при использовании драйверов Nvidia, установленных из репозитория Debian или Ubuntu, тени в Compiz приобритают противоестественный цвет (чаще всего розовый, но я видел и зелёный, и даже белый) либо не отображаются вовсе.</p>
+<p>Этот баг преследует меня уже давно, но решения я найти не мог. Теперь же, с выходом Hardy, эту проблему обнаружило гораздо большее число людей. Народ возбудился и коллективный разум выдал временное решение. Надо всего лишь выполнить следующую команду:</p>
+<pre>sudo ln -sf /usr/lib/nvidia/libwfb.so.xserver-xorg-core /usr/lib/xorg/modules/libwfb.so</pre>
+<p>и перезапустить сеанс.</p>
+<p>Решение нашёл в блоге <a href="http://tombuntu.com/index.php/2008/04/28/workaround-for-pink-shadows-with-compiz/">tombuntu.com</a></p>
+<p><strong>UPDATE</strong>: В Ubuntu эта ошибка исправлена в пакете <em>linux-restricted-modules</em> начиная с версии <em>2.6.24.12-17.36</em>.</p>
+]]></content:encoded>
+			<wfw:commentRss>http://cornelius.net.ru/2008/05/03/compiz-ping-shadows/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+		<item>
+		<title>GmountISO &#8211; графическая утилита для монтирования ISO-образов</title>
+		<link>http://andreyfedoseev.ru/blog/articles/52/gmountiso</link>
+		<comments>http://andreyfedoseev.ru/blog/articles/52/gmountiso#comments</comments>
+		<pubDate>Sat, 03 May 2008 11:21:09 +0000</pubDate>
+		<dc:creator>Andrey Fedoseev</dc:creator>
+				<category><![CDATA[Gnome]]></category>
+		<category><![CDATA[Linux]]></category>
+		<category><![CDATA[Ubuntu]]></category>
+		<category><![CDATA[обзор программы]]></category>
+		<category><![CDATA[GmountISO]]></category>
+		<category><![CDATA[iso]]></category>
+
+		<guid isPermaLink="false">http://cornelius.net.ru/?p=72</guid>
+		<description><![CDATA[Монтировать ISO-образы мне приходится часто, а набирать каждый раз команду
+sudo mount myiso.iso /mnt -t iso9660 -o ro,loop=/dev/loop0
+ &#8211; лениво. Поэтому я решил поискать какой-нибудь двухкликовый способ монтирования ISO. При мне хотелось, чтобы эта утилита была интегрирована в Nautilus.
+Искать я решил Гуглем, но Гугль меня подвёл. На большинстве сайтов предлагали воспользоваться набором из двух скриптов для [...]]]></description>
+			<content:encoded><![CDATA[<p>Монтировать ISO-образы мне приходится часто, а набирать каждый раз команду</p>
+<pre>sudo mount myiso.iso /mnt -t iso9660 -o ro,loop=/dev/loop0</pre>
+<p> &#8211; лениво. Поэтому я решил поискать какой-нибудь двухкликовый способ монтирования ISO. При мне хотелось, чтобы эта утилита была интегрирована в Nautilus.</p>
+<p><a href="http://www.google.ru/search?q=nautilus+mount+iso">Искать</a> я решил Гуглем, но Гугль меня подвёл. На большинстве сайтов предлагали воспользоваться набором из двух скриптов для Nautilus, но эти скрипты у меня почему-то не заработали.</p>
+<p>Но через некоторое время я набрёл на замечательную программку: <strong>GmountISO</strong>. Программка позволяет монтировать ISO образы в произвольную папку, а также отмонтировать уже подключённые образы.</p>
+<p>Интерфейс программы прост до безобразия и в пояснениях не нуждается.</p>
+<div style="text-align: center;"><img src="http://cornelius.net.ru/wp-content/uploads-cornelius/gmount-iso.png" alt="GmountISO" width="322" height="339" class="attachment wp-att-73" />
+<div class="imagecaption">GmountISO</div>
+</div>
+<p>GmountISO входит в состав Ubuntu, поэтому устанавливается она проще простого:</p>
+<pre>sudo aptitude install gmountiso</pre>
+]]></content:encoded>
+			<wfw:commentRss>http://andreyfedoseev.ru/blog/articles/52/gmountisofeed/</wfw:commentRss>
+		<slash:comments>2</slash:comments>
+		</item>
+	</channel>
+</rss>
